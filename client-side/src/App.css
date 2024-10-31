@@ -1,0 +1,54 @@
+/* html, body {
+  height: 100%; 
+  margin: 0; 
+  background-color: black; 
+  color: white; 
+} */
+
+.App {
+  text-align: center;
+  padding: 30px;
+}
+
+.cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.card {
+  padding: 10px;
+  height: 100px;
+  width: 200px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  border-radius: 5px;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.color-button {
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  background-color: #282c3400;
+  border: solid 1px white;
+}
+
+.input-text {
+  text-align: center;
+  border: none;
+  background: transparent;
+  color: inherit;
+}
+
+.icons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-card {
+  font-size: 50px;
+}
