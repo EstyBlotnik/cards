@@ -6,30 +6,36 @@ import axios from "axios";
 function App() {
   const [background, setBackground] = useState("");
   const [cards, setCards] = useState([]);
+
   const addCard = async () => {
     const newCard = { background: "#EEEEEE", text: "text" };
     try {
-      // ביצוע בקשת PUT
-      await axios.post(
-        "http://localhost:5000/addCard",
-        newCard
-      );
+      await axios.post("http://localhost:5000/addCard", newCard);
       window.location.reload();
     } catch (error) {
       console.error("Error updating data:", error);
     }
   };
-  useEffect(() => {
-    loadingCards();
-  }, [background]);
+
   const loadingCards = () => {
     axios
       .get("http://localhost:5000/cards")
       .then((response) => {
         setCards(response.data);
-        console.log(response.data); // הדפסת הנתונים שהתקבלו
       })
       .catch((error) => console.log(error));
+  };
+
+  useEffect(() => {
+    loadingCards();
+  }, []);
+
+  // פונקציה להחלפת המיקומים של הכרטיסים
+  const moveCard = (dragIndex, hoverIndex) => {
+    const updatedCards = [...cards];
+    const [draggedCard] = updatedCards.splice(dragIndex, 1);
+    updatedCards.splice(hoverIndex, 0, draggedCard);
+    setCards(updatedCards); // עדכון הסטייט של cards עם המיקום המעודכן
   };
 
   return (
@@ -39,11 +45,12 @@ function App() {
         <div className="cards">
           {cards.map((card, index) => (
             <Card
-              key={index}
+              key={card.id}
               setBackground={setBackground}
               card={card}
+              index={index}
+              moveCard={moveCard} // מעביר את moveCard כ-prop
               setCards={setCards}
-              cards={cards}
             />
           ))}
           <div className="card">
